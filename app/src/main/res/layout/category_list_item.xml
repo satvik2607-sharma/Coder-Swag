@@ -20,9 +20,10 @@
 
     <TextView
         android:id="@+id/categoryName"
-        android:layout_width="75dp"
-        android:layout_height="38dp"
+        android:layout_width="113dp"
+        android:layout_height="41dp"
         android:text="TextView"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
