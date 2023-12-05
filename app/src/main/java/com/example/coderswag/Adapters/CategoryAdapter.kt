@@ -8,7 +8,9 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.documentfile.R
+import androidx.recyclerview.widget.RecyclerView
 import com.example.coderswag.Model.Category
+
 
 class CategoryAdapter( context: Context, categories: List<Category>,) : BaseAdapter() {
 
@@ -28,21 +30,40 @@ class CategoryAdapter( context: Context, categories: List<Category>,) : BaseAdap
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val categoryView: View
+        val holder: ViewHolder
 
-        categoryView=LayoutInflater.from(context).inflate(com.example.coderswag.R.layout.category_list_item, null)
-        val categoryImage: ImageView=categoryView.findViewById(com.example.coderswag.R.id.categoryImage)
-        val categoryName: TextView=categoryView.findViewById(com.example.coderswag.R.id.categoryName)
+        if (convertView == null){
+            categoryView=LayoutInflater.from(context).inflate(com.example.coderswag.R.layout.category_list_item, null)
+            holder=ViewHolder()
+
+            holder.categoryImage=categoryView.findViewById(com.example.coderswag.R.id.categoryImage)
+            holder.categoryName=categoryView.findViewById(com.example.coderswag.R.id.categoryName)
+            println("i exist for first time")
+            categoryView.tag=holder
+        }
+        else{
+            holder = convertView.tag as ViewHolder
+            categoryView = convertView
+            println("go green recycle")
+        }
+
+
 
         val category=categories[position]
 
         val resourceId=context.resources.getIdentifier(category.image, "drawable", context.packageName)
-        categoryImage.setImageResource(resourceId)
+        holder.categoryImage?.setImageResource(resourceId)
         println(resourceId)
 
-        categoryName.text=category.title
+        holder.categoryName?.text=category.title
 
 
         return categoryView
+    }
+
+    private class ViewHolder{
+        var categoryImage: ImageView? =null
+        var categoryName: TextView? = null
     }
 
 }
